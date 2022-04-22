@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <script type="module" src="./update.js"></script>
+
+      </head>
+    <body>
+        <p><b>This is update page.</b></p>
+        <p><b>3.永久アカウントへ移行します</b></p>
+        <input type="button" value="永久アカウントへ移行" id="updateLogin">
+        <p id = updateStatus></p>
+        <br>
+        <br>
+        <p><b>4.Emailアドレスおよびパスワードでログインを試行します</b></p>
+        <span>ログインEmailアドレス：</span>
+        <input type="text" id="email" name="name">
+        <br>
+        <span<>ログインパスワード：</span>
+        <input type="text" id="password" name="password">
+        <br>
+        <br>
+        <input type="button" value="Eメールログイン" id="emailLogin">
+        <p id = loginStatus></p>
+        <br>
+        <br>
+        <br>
+        <br>
+        <p><b>現在のアカウントID</b></p>
+        <p id = account></p>
+        <p><b>isAnonymous</b></p>
+        <p id = isanon></p>
+        <p><b>localStorage(Emailアドレス)</b></p>
+        <p id = localAddress></p>
+        <p><b>localStorage(パスワード)</b></p>
+        <p id = localPassword></p>
+        <br>
+        <br>
+        <input type="button" value="ユーザー削除" id="deleteUser">
+
+
+    </body>
+
+</html>

@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <script type="module" src="./login.js"></script>
+
+      </head>
+    <body>
+        <p><b>This is first page.</b></p>
+        <br>
+        <p><b>1.匿名ログインをします</b></p>
+        <input type="button" value="匿名ログイン" id="anonymousLogin">
+        <br>
+        <br>
+        <br>
+        <p><b>2.永久アカウントで使用するEmailアドレス、パスワード(6文字以上)を入力し、検証メールを送信します</b></p>
+        <span>Emailアドレス：</span>
+        <input type="text" id="email" name="name">
+        <br>
+        <span>パスワード：</span>
+        <input type="text" id="password" name="password">
+        <br>
+        <br>
+        <input type="button" value="検証メール送信" id="sendEmail">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <p><b>現在のアカウントID</b></p>
+        <p id = account></p>
+        <p><b>isAnonymous</b></p>
+        <p id = isanon></p>
+        <p><b>localStorageに保存されたEmailアドレス</b></p>
+        <p id = localAddress></p>
+        <p><b>localStorageにに保存されたパスワード</b></p>
+        <p id = localPassword></p>
+        <input type="button" value="local storage 初期化" id="resetLocalStorage">
+        <br>
+        <br>
+        <input type="button" value="ユーザー削除" id="deleteUser">
+    </body>
+
+</html>
