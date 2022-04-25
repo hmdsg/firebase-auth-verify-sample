@@ -6,9 +6,23 @@ var account = document.getElementById('account');
 var isanon = document.getElementById('isanon');
 var localAddressElement = document.getElementById('localAddress');
 var localPasswordElement = document.getElementById('localPassword');
+var passwordLoginStatusElement = document.getElementById('passwordLoginStatus');
 var loginStatusElement = document.getElementById('loginStatus');
-var updateStatusElement = document.getElementById('updateStatus');
+var updateStatus = document.getElementById('updateStatus');
 
+window.onload = function(){
+  const auth = getAuth();
+  const user = auth.currentUser;
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/firebase.User
+    loginStatusElement.innerText = "ログイン中";
+  } else {
+    // No user is signed in.
+    loginStatusElement.innerText = "未ログイン";
+  }
+};
+  
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
@@ -18,12 +32,13 @@ onAuthStateChanged(auth, (user) => {
     isanon.innerText = isAnonymous;
     localAddressElement.innerText = window.localStorage.getItem("emailForSignIn");
     localPasswordElement.innerText =  window.localStorage.getItem("passwordForSignIn");
+    loginStatusElement.innerText = "ログイン中";
 
     if (!user.isAnonymous){
-        isanon.style.color = "red";
+      isanon.style.color = "red";
       }
-  } else {
-    //anything
+    } else {
+    loginStatusElement.innerText = "未ログイン";
   }
 });
 
@@ -46,8 +61,9 @@ document.getElementById('updateLogin').addEventListener('click', function(){
       window.localStorage.removeItem("passwordForSignIn");
 
       window.location.reload(true);
-
     }).catch((error) => {
+      updateStatus.style.color = "red";
+      updateStatus.innerText = error.message;
       console.log("Error upgrading anonymous account", error);
     });
 });
@@ -63,13 +79,12 @@ document.getElementById('emailLogin').addEventListener('click', function(){
         // Signed in
         const user = userCredential.user;
         console.log("email login success");
-        loginStatusElement.innerText = "ログイン成功";
-        // ...
+        passwordLoginStatusElement.innerText = "パスワードログイン成功";
     })
     .catch((error) => {
-        loginStatusElement.innerText = "ログイン失敗";
         const errorCode = error.code;
         const errorMessage = error.message;
+        passwordLoginStatusElement.innerText = "パスワードログイン失敗";
         console.log(errorCode, errorMessage);
     });
 });
@@ -81,8 +96,6 @@ document.getElementById('deleteUser').addEventListener('click', function(){
       console.log("delete success");
       window.location.reload(true);
     }).catch((error) => {
-      // An error ocurred
-      // ...
       console.log(error);
     });
   });

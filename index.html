@@ -7,7 +7,8 @@
         <p><b>This is first page.</b></p>
         <br>
         <p><b>1.匿名ログインをします</b></p>
-        <input type="button" value="匿名ログイン" id="anonymousLogin">
+        <input type="button" value="1.匿名ログイン" id="anonymousLogin">
+        <p id = "anonymousLoginResult"></p>
         <br>
         <br>
         <br>
@@ -19,20 +20,22 @@
         <input type="text" id="password" name="password">
         <br>
         <br>
-        <input type="button" value="検証メール送信" id="sendEmail">
+        <input type="button" value="2.検証メール送信" id="sendEmail">
         <br>
         <br>
         <br>
         <br>
         <br>
+        <p><b>ログイン状態</b></p>
+        <p id = "loginStatus"></p>
         <p><b>現在のアカウントID</b></p>
-        <p id = account></p>
+        <p id = "account"></p>
         <p><b>isAnonymous</b></p>
-        <p id = isanon></p>
+        <p id = "isanon"></p>
         <p><b>localStorageに保存されたEmailアドレス</b></p>
-        <p id = localAddress></p>
-        <p><b>localStorageにに保存されたパスワード</b></p>
-        <p id = localPassword></p>
+        <p id = "localAddress"></p>
+        <p><b>localStorageに保存されたパスワード</b></p>
+        <p id = "localPassword"></p>
         <input type="button" value="local storage 初期化" id="resetLocalStorage">
         <br>
         <br>

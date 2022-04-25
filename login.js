@@ -6,6 +6,22 @@ var account = document.getElementById('account');
 var isanon = document.getElementById('isanon');
 var localAddressElement = document.getElementById('localAddress');
 var localPasswordElement = document.getElementById('localPassword');
+var anonymousLoginResultElement = document.getElementById('anonymousLoginResult');
+var loginStatusElement = document.getElementById('loginStatus');
+
+window.onload = function(){
+  const auth = getAuth();
+  const user = auth.currentUser;
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/firebase.User
+    loginStatusElement.innerText = "ログイン中";
+  } else {
+    // No user is signed in.
+    loginStatusElement.innerText = "未ログイン";
+  }
+};
+  
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
@@ -15,12 +31,14 @@ onAuthStateChanged(auth, (user) => {
     isanon.innerText = isAnonymous;
     localAddressElement.innerText = window.localStorage.getItem("emailForSignIn");
     localPasswordElement.innerText =  window.localStorage.getItem("passwordForSignIn");
+    loginStatusElement.innerText = "ログイン中";
+
 
     if (!user.isAnonymous){
       isanon.style.color = "red";
     }
   } else {
-    //anything
+    loginStatusElement.innerText = "未ログイン";
   }
 });
 
@@ -31,13 +49,13 @@ document.getElementById('anonymousLogin').addEventListener('click', function(){
     .then(data => {
         console.log("anonymous login success");
         console.log(data);
-        // Signed in..
+        anonymousLoginResultElement.innerText = "匿名ログインに成功";
     })
     .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log("error")
-        // ...
+        console.log("error");
+        anonymousLoginResultElement.innerText =  error.message;
     });
 });
 
@@ -56,7 +74,6 @@ document.getElementById('sendEmail').addEventListener('click', function(){
     };
 
     // メール送信
-    console.log(callbackUrl)
     sendSignInLinkToEmail(auth, email, actionCodeSettings)
       .then(function() {
         // local storageへセット
@@ -64,14 +81,13 @@ document.getElementById('sendEmail').addEventListener('click', function(){
         window.localStorage.setItem('passwordForSignIn', password);
         localAddressElement.innerText = window.localStorage.getItem("emailForSignIn");
         localPasswordElement.innerText =  window.localStorage.getItem("passwordForSignIn");
-        console.log("send mail success")
+        console.log("send mail success");
         window.location.href = './send.html'; 
-
     })
     .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage)
+        console.log(errorCode, errorMessage);
     });
 });
 
@@ -85,11 +101,10 @@ document.getElementById('deleteUser').addEventListener('click', function(){
   const user = auth.currentUser;
   deleteUser(user).then(() => {
     // User deleted.
-    console.log("delete success")
+    console.log("delete success");
     window.location.reload(true);
   }).catch((error) => {
     // An error ocurred
-    // ...
     console.log(error);
   });
 });
